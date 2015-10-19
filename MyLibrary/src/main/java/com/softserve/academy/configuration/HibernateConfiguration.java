@@ -18,10 +18,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "ss.java.course.configuration" })
+@ComponentScan({ "com.softserve.academy.configuration" })
 @PropertySource(value = { "classpath:hibernate.properties" })
 public class HibernateConfiguration {
  
+	public HibernateConfiguration() {
+	}
+	
     @Autowired
     private Environment environment;
  

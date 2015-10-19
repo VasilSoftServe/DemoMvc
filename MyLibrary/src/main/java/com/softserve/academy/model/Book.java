@@ -6,35 +6,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ForeignKey;
-
-@SuppressWarnings("deprecation")
 @Entity
 @Table(name = "books")
 public class Book {
 
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
+	@NotNull
 	@Size(min = 3, max = 50)
-	@Column(name = "name", nullable = false)
+	@Column(name = "name")
 	private String name;
 
+	@NotNull
 	@Size(min = 3, max = 15)
-	@Column(name = "status", nullable = false)
+	@Column(name = "status")
 	private String status;
-
-	@ForeignKey(name = "id_authors")
-	@Column(name = "id_authors", nullable = false)
-	private int id_authors;
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -42,7 +39,7 @@ public class Book {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -76,40 +73,20 @@ public class Book {
 		this.status = status;
 	}
 
-	/**
-	 * @return the id_authors
-	 */
-	public int getId_authors() {
-		return id_authors;
-	}
-
-	/**
-	 * @param id_authors
-	 *            the id_authors to set
-	 */
-	public void setId_authors(int id_authors) {
-		this.id_authors = id_authors;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
-		result = prime * result + id_authors;
+		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -122,8 +99,6 @@ public class Book {
 			return false;
 		Book other = (Book) obj;
 		if (id != other.id)
-			return false;
-		if (id_authors != other.id_authors)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -138,13 +113,15 @@ public class Book {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", status=" + status + ", id_authors=" + id_authors + "]";
+		return "Book [id=" + id + ", name=" + name + ", status=" + status + "]";
 	}
+
+
+	
+
 }

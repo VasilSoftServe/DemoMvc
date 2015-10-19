@@ -5,7 +5,10 @@ package com.softserve.academy.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.academy.dao.BookDao;
 import com.softserve.academy.model.Book;
@@ -14,69 +17,45 @@ import com.softserve.academy.model.Book;
  * @author 123
  *
  */
+
+@Service("bookService")
+@Transactional
 public class BookServiceImpl implements BookService {
 
 	@Autowired
-	private BookDao bookDao;
+	private BookDao dao;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.softserve.academy.service.BookService#findById(int)
+	 * @see com.softserve.academy.service.BookService#findById(long)
 	 */
 	@Override
-	public Book findById(int bookId) {
-		return bookDao.findById(bookId);
+	public Book findById(long id) {
+		return dao.findById(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.softserve.academy.service.BookService#addBook(com.softserve.academy.
-	 * model.Book)
-	 */
 	@Override
-	public void addBook(Book book) {
-		bookDao.add(book);
+	public void saveBook(Book book) {
+		dao.saveBook(book);		
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.softserve.academy.service.BookService#editBook(com.softserve.academy.
-	 * model.Book)
-	 */
 	@Override
-	public void editBook(Book book) {
-		bookDao.edit(book);
-//		Book entity = bookDao.findById(book.getId());
-//		if (entity != null) {
-//			entity.setName(book.getName());
-//			entity.setStatus(book.getStatus());
-//			entity.setId_authors(book.getId_authors());
-//		}
+	public void updateBook(Book book) {
+		Book entity = dao.findById(book.getId());
+        if(entity!=null){
+            entity.setName(book.getName());
+            entity.setStatus(book.getStatus());
+        }
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.softserve.academy.service.BookService#deleteBookById(int)
-	 */
 	@Override
-	public void deleteBookById(int bookId) {
-		bookDao.deleteBook(bookId);
+	public void deleteBookById(long id) {
+		dao.deleteBookById(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.softserve.academy.service.BookService#findAllBook()
-	 */
 	@Override
-	public List<Book> findAllBook() {
-		return bookDao.findAllBooks();
+	public List<Book> findAllBooks() {
+		return dao.findAllBooks();
 	}
-
 }

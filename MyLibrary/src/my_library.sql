@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2015 at 10:14 PM
+-- Generation Time: Oct 19, 2015 at 04:08 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -30,7 +30,18 @@ CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `country` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `authors`
+--
+
+INSERT INTO `authors` (`id`, `name`, `country`) VALUES
+(1, 'Ivan Vazov', 'BG'),
+(2, 'Elin Pelin', 'BG'),
+(3, 'aaaaaa', 'sdasdas'),
+(4, 'Mark Tven', 'BulG'),
+(5, 'Victor Hugo', 'France');
 
 -- --------------------------------------------------------
 
@@ -43,7 +54,16 @@ CREATE TABLE IF NOT EXISTS `books` (
   `name` varchar(50) DEFAULT NULL,
   `status` varchar(15) DEFAULT NULL,
   `id_authors` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `name`, `status`, `id_authors`) VALUES
+(2, 'Pod igoto', 'in stock', 1),
+(3, 'Na brazdata', 'out of stock', 2),
+(4, 'aaaaaa', 'aaaaaa', NULL);
 
 --
 -- Indexes for dumped tables
@@ -71,12 +91,12 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --

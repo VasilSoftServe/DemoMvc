@@ -13,14 +13,12 @@ import com.softserve.academy.model.Book;
  */
 public interface BookDao {
 
-	public void add(Book book);
-	
-	public void edit(Book book);
-	
-	public void deleteBook(int bookId);
-	
-	public Book findById(int bookId);	
-	
-	public List<Book> findAllBooks();
+	Book findById(Long id);
+
+	void saveBook(Book book);
+
+	void deleteBookById(Long id);
+
+	List<Book> findAllBooks();
 	
 }

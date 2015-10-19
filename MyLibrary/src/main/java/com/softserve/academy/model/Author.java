@@ -14,20 +14,20 @@ public class Author {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	@Size(min = 3, max = 50)
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Size(min = 3, max = 15)
+	@Size(min = 2, max = 15)
 	@Column(name = "country", nullable = false)
 	private String country;
 
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -35,7 +35,7 @@ public class Author {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -69,9 +69,7 @@ public class Author {
 		this.country = country;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -79,14 +77,12 @@ public class Author {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + id;
+		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -113,13 +109,13 @@ public class Author {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", name=" + name + ", country=" + country + "]";
 	}
+
+	
 }

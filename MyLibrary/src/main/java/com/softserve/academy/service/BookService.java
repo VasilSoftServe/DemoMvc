@@ -6,13 +6,13 @@ import com.softserve.academy.model.Book;
 
 public interface BookService {
 
-	Book findById(int bookId);
+	Book findById(long id);
 	
-	void addBook(Book book);
+	void saveBook(Book book);
 	
-	void editBook(Book book);
+	void updateBook(Book book);
 	
-	void deleteBookById(int bookId);
+	void deleteBookById(long id);
 	
-	List<Book> findAllBook();
+	List<Book> findAllBooks();
 }
