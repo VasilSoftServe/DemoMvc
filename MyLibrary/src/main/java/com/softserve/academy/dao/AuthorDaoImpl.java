@@ -13,7 +13,7 @@ public class AuthorDaoImpl extends AbstractDao<Long, Author> implements AuthorDa
 
 	@Override
 	public Author findById(Long id) {
-		return findById(id);
+		return getByKey(id);
 	}
 
 	@Override

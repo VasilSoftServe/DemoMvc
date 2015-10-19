@@ -21,7 +21,7 @@ public class BookDaoImpl extends AbstractDao<Long, Book> implements BookDao {
 
 	@Override
 	public Book findById(Long id) {
-		return findById(id);
+		return getByKey(id);
 	}
 
 	@Override

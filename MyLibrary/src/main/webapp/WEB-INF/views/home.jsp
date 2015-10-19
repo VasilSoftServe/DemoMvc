@@ -9,7 +9,7 @@
 <body>
 	<h1>${library}</h1>	
 
-	<a href="<c:url value='/authors/allAuthors' />">List of All Authors</a>
+	<a href="<c:url value='/authors/' />">List of All Authors</a>
 
 </body>
 </html>

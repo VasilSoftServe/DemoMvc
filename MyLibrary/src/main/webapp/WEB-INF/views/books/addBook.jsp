@@ -27,15 +27,15 @@
 
 			<tr>
 				<td><label for="name">Author: </label></td>
-				<td>
-				<form:form modelAttribute="author">
-				<select>
-				<option  id="author" value="" disabled selected>Please select an author...</option>
-				<option>${author}</option>
-				<option>1</option>
-				</select>
-				</form:form>
-				</td>
+				<td><form:form modelAttribute="author">
+						<select>
+							<option id="author" value="" disabled selected>Please
+								select an author...</option>
+							<c:forEach items="${authors}" var="author">
+								<option>${author.name}</option>
+							</c:forEach>
+						</select>
+					</form:form></td>
 			</tr>
 			<tr>
 				<td><label for="name">Name: </label></td>

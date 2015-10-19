@@ -29,7 +29,7 @@ public class AuthorController {
     /*
      * This method will list all existing authors.
      */
-    @RequestMapping(value = { "/allAuthors" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public String listAuthors(ModelMap model) {
  
         List<Author> authors = service.findAllAuthors();

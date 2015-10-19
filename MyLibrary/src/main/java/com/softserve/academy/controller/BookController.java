@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.softserve.academy.model.Author;
 import com.softserve.academy.model.Book;
+import com.softserve.academy.service.AuthorService;
 import com.softserve.academy.service.BookService;
 
 @Controller
@@ -26,6 +28,8 @@ public class BookController {
     @Autowired
     MessageSource messageSource;
  
+    @Autowired
+    AuthorService authorService;
     /*
      * This method will list all existing authors.
      */
@@ -43,11 +47,19 @@ public class BookController {
     @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
     public String newBook(ModelMap model) {
     	Book book = new Book();
+
         model.addAttribute("book", book);
         model.addAttribute("edit", false);
         return "books/addBook";
     }
  
+    
+//    @RequestMapping(value = {"/edit-{id}-book"}, method = RequestMethod.GET)
+//    public String AuthorService(ModelMap model){
+//        List<Author> authors = authorService.findAllAuthors();
+//        model.addAttribute("authors", authors);
+//        return "books/addBooks";
+//    }
     /*
      * This method will be called on form submission, handling POST request for
      * saving employee in database. It also validates the user input
