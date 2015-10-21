@@ -2,9 +2,12 @@ package com.softserve.academy.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +30,27 @@ public class Book {
 	@Size(min = 3, max = 15)
 	@Column(name = "status")
 	private String status;
+
+//	@ManyToOne()
+//	@JoinColumn(name="id_authors")
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "id_authors")
+	private Author authorId;
+	
+		
+	/**
+	 * @return the authorId
+	 */
+	public Author getAuthorId() {
+		return authorId;
+	}
+
+	/**
+	 * @param authorId the authorId to set
+	 */
+	public void setAuthorId(Author authorId) {
+		this.authorId = authorId;
+	}
 
 	/**
 	 * @return the id

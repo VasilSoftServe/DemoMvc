@@ -35,7 +35,7 @@ tr:first-child {
 	<br />
 	<a href="<c:url value='/books/new' />">Add New Book</a>
 	<br/>
-	<a href="<c:url value='/authors/allAuthors' />">Back</a>
+	<a href="<c:url value='/authors/' />">Back</a>
 	<br /> Go back to
 	<a href="<c:url value='/' />">Home</a>
 </body>

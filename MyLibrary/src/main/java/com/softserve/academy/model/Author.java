@@ -1,11 +1,18 @@
 package com.softserve.academy.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -24,6 +31,31 @@ public class Author {
 	@Column(name = "country", nullable = false)
 	private String country;
 
+//	@OneToMany(mappedBy="authors")
+//	@Transient 
+	@OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OrderColumn(name = "id")
+    private List<Book> books;
+ 
+//	@Transient  
+//	 private List<String> Answer;
+	
+
+	/**
+	 * @return the books
+	 */
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	/**
+	 * @param books the books to set
+	 */
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	
 	/**
 	 * @return the id
 	 */
@@ -117,5 +149,4 @@ public class Author {
 		return "Author [id=" + id + ", name=" + name + ", country=" + country + "]";
 	}
 
-	
 }

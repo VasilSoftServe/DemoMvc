@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.omg.PortableInterceptor.ServerRequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.softserve.academy.model.Author;
 import com.softserve.academy.model.Book;
-import com.softserve.academy.service.AuthorService;
-import com.softserve.academy.service.BookService;
+import com.softserve.academy.service.author.AuthorService;
+import com.softserve.academy.service.book.BookService;
 
 @Controller
-@RequestMapping({ "/books" })
+@RequestMapping({ "authors/{id}" })
 public class BookController {
 
     @Autowired
@@ -33,7 +34,7 @@ public class BookController {
     /*
      * This method will list all existing authors.
      */
-    @RequestMapping(value = { "/allBooks" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/books" }, method = RequestMethod.GET)
     public String listBooks(ModelMap model) {
  
         List<Book> books = service.findAllBooks();
@@ -48,9 +49,15 @@ public class BookController {
     public String newBook(ModelMap model) {
     	Book book = new Book();
 
+    	choiceAuthor(model);
         model.addAttribute("book", book);
         model.addAttribute("edit", false);
         return "books/addBook";
+    }
+    
+    public void choiceAuthor(ModelMap model){
+    	List<Author> authors = authorService.findAllAuthors();
+        model.addAttribute("authors", authors);
     }
  
     
@@ -64,40 +71,42 @@ public class BookController {
      * This method will be called on form submission, handling POST request for
      * saving employee in database. It also validates the user input
      */
-    @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-    public String saveBook(@Valid Book book, BindingResult result,
-            ModelMap model) {
+    @RequestMapping(value = { "/books/new" }, method = RequestMethod.POST)
+    public String saveBook(@Valid Book book, BindingResult result, ModelMap model, @PathVariable Long id) {
  
         if (result.hasErrors()) {
             return "books/addBook";
         }
  
-        /*
-         * It will be update a current author. 
-         * 
-         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-         * framework as well while still using internationalized messages.
-         * 
-         */
-//        if(!service.isEmployeeSsnUnique(employee.getId(), employee.getSsn())){
-//            FieldError ssnError =new FieldError("employee","ssn",messageSource.getMessage("non.unique.ssn", new String[]{employee.getSsn()}, Locale.getDefault()));
-//            result.addError(ssnError);
-//            return "registration";
-//        }
+        
+        
+        Author author = authorService.findById(id);
+		author.getBooks().add(book);
+		book.setAuthorId(author);
+		service.saveBook(book);
+
+		
+		return "redirect:/authors/{id}";
          
-        service.saveBook(book);
- 
-        model.addAttribute("success", "Book " + book.getName() + " saved successfully");
-        return "success";
+//        service.saveBook(book);
+// 
+//        model.addAttribute("success", "Book " + book.getName() + " saved successfully");
+//        return "success";
     }
+    
+   
+
  
  
     /*
      * This method will provide the medium to update an existing employee.
      */
-    @RequestMapping(value = { "/edit-{id}-book" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.GET)
     public String editBook(@PathVariable Long id, ModelMap model) {
         Book book = service.findById(id);
+        Author author = book.getAuthorId();
+//        choiceAuthor(model);
+        model.addAttribute("author", author);
         model.addAttribute("book", book);
         model.addAttribute("edit", true);
         return "books/addBook";
@@ -107,7 +116,7 @@ public class BookController {
      * This method will be called on form submission, handling POST request for
      * updating employee in database. It also validates the user input
      */
-    @RequestMapping(value = { "/edit-{id}-book" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.POST)
     public String updateBook(@Valid Book book, BindingResult result,
             ModelMap model, @PathVariable Long id) {
  
@@ -119,6 +128,7 @@ public class BookController {
         service.updateBook(book);
  
         model.addAttribute("success", "Book " + book.getName() + " updated successfully");
+        model.addAttribute("bookList",true);
         return "success";
     }
  
@@ -126,10 +136,10 @@ public class BookController {
     /*
      * This method will delete an books by it's SSN value.
      */
-    @RequestMapping(value = { "/delete-{id}-book" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.DELETE)
     public String deleteBook(@PathVariable Long id) {
         service.deleteBookById(id);
-        return "redirect:/books/allBooks";
+        return "redirect:/books/";
     }
  
 }

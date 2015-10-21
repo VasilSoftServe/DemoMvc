@@ -19,7 +19,7 @@
 
 <body>
 
-	<h2>Add Author</h2>
+	<h2>Create Author</h2>
 
 	<form:form method="POST" modelAttribute="author">
 		<form:input type="hidden" path="id" id="id" />
