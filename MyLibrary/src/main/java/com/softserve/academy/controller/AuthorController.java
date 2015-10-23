@@ -21,7 +21,7 @@ import com.softserve.academy.service.author.AuthorService;
 public class AuthorController {
 
     @Autowired
-    AuthorService service;
+    AuthorService authorService;
      
     @Autowired
     MessageSource messageSource;
@@ -32,7 +32,7 @@ public class AuthorController {
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public String listAuthors(ModelMap model) {
  
-        List<Author> authors = service.findAllAuthors();
+        List<Author> authors = authorService.findAllAuthors();
         model.addAttribute("authors", authors);
         return "authors/allAuthors";
     }
@@ -50,7 +50,7 @@ public class AuthorController {
  
     /*
      * This method will be called on form submission, handling POST request for
-     * saving employee in database. It also validates the user input
+     * saving author in database.
      */
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
     public String saveAuthor(@Valid Author author, BindingResult result,
@@ -59,27 +59,21 @@ public class AuthorController {
         if (result.hasErrors()) {
             return "authors/addAuthor";
         }
+        
+        authorService.saveAuthor(author);
  
-        /*
-         * It will be update a current author. 
-         * 
-         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-         * framework as well while still using internationalized messages.
-         * 
-         */         
-        service.saveAuthor(author);
- 
-        model.addAttribute("success", "Author " + author.getName() + " saved successfully");
-        return "success";
+//        model.addAttribute("success", "Author " + author.getName() + " saved successfully");
+//        return "success";
+        return "redirect:/authors/";
     }
  
  
     /*
-     * This method will provide the medium to update an existing employee.
+     * This method will provide the medium to update an existing author.
      */
     @RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
     public String editAuthor(@PathVariable Long id, ModelMap model) {
-        Author author = service.findById(id);
+        Author author = authorService.findById(id);
         model.addAttribute("author", author);
         model.addAttribute("edit", true);
         return "authors/addAuthor";
@@ -87,9 +81,9 @@ public class AuthorController {
      
     /*
      * This method will be called on form submission, handling POST request for
-     * updating employee in database. It also validates the user input
+     * updating author in database. It also validates the user input
      */
-    @RequestMapping(value = { "/{id}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "/{id}" }, method = RequestMethod.PUT)
     public String updateAuthor(@Valid Author author, BindingResult result,
             ModelMap model, @PathVariable Long id) {
  
@@ -98,7 +92,7 @@ public class AuthorController {
         }
  
        
-        service.updateAuthor(author);
+        authorService.updateAuthor(author);
  
 //        model.addAttribute("success", "Author " + author.getName() + " updated successfully");
 //        return "success";
@@ -112,7 +106,7 @@ public class AuthorController {
      */
     @RequestMapping(value = { "/{id}" }, method = RequestMethod.DELETE)
     public String deleteAuthor(@PathVariable Long id) {
-        service.deleteAuthorById(id);
+    	authorService.deleteAuthor(authorService.findById(id));;
         return "redirect:/authors/";
     } 
 }

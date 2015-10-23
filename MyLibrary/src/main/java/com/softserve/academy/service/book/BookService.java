@@ -1,6 +1,6 @@
 package com.softserve.academy.service.book;
 
-import java.util.List;
+import java.util.Set;
 
 import com.softserve.academy.model.Book;
 
@@ -11,8 +11,8 @@ public interface BookService {
 	void saveBook(Book book);
 	
 	void updateBook(Book book);
+		
+	void deleteBook(Book book);
 	
-	void deleteBookById(long id);
-	
-	List<Book> findAllBooks();
+	Set<Book> findAllBooks();
 }

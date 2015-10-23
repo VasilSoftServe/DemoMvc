@@ -3,8 +3,7 @@
  */
 package com.softserve.academy.service.book;
 
-import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,18 +43,18 @@ public class BookServiceImpl implements BookService {
 	public void updateBook(Book book) {
 		Book entity = dao.findById(book.getId());
         if(entity!=null){
-            entity.setName(book.getName());
+            entity.setTitle(book.getTitle());
             entity.setStatus(book.getStatus());
         }
 	}
 
 	@Override
-	public void deleteBookById(long id) {
-		dao.deleteBookById(id);
+	public void deleteBook(Book book) {
+		dao.deleteBookById(book.getId());
 	}
 
 	@Override
-	public List<Book> findAllBooks() {
+	public Set<Book> findAllBooks() {
 		return dao.findAllBooks();
 	}
 }

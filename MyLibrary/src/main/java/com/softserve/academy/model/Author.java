@@ -1,6 +1,6 @@
 package com.softserve.academy.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,16 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "authors")
 public class Author {
 
+
+
 	@Id
+	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
@@ -31,27 +32,24 @@ public class Author {
 	@Column(name = "country", nullable = false)
 	private String country;
 
-//	@OneToMany(mappedBy="authors")
-//	@Transient 
-	@OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@OrderColumn(name = "id")
-    private List<Book> books;
+
+	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
+    private Set<Book> books;
  
 //	@Transient  
 //	 private List<String> Answer;
 	
-
 	/**
 	 * @return the books
 	 */
-	public List<Book> getBooks() {
+	public Set<Book> getBooks() {
 		return books;
 	}
 
 	/**
 	 * @param books the books to set
 	 */
-	public void setBooks(List<Book> books) {
+	public void setBooks(Set<Book> books) {
 		this.books = books;
 	}
 

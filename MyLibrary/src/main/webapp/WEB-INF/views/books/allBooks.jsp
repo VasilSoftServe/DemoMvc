@@ -1,42 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>University Enrollments</title>
 
-<style>
-tr:first-child {
-	font-weight: bold;
-	background-color: #C6C9C4;
-}
+<style type="text/css">
+    <%@include file="../libs/css/bootstrap-theme.min.css" %>
+    <%@include file="../libs/css/bootstrap.min.css" %>
 </style>
 
 </head>
 
 
 <body>
-	<h2>List of Books</h2>
-	<table>
-		<tr>
-			<th>Name</th>
-			<th>Status</th>
-		</tr>
-		<c:forEach items="${books}" var="book">
+	<div class="jumbotron">
+		<h2>List of Books</h2>
+		
+		<table class="table">
 			<tr>
-				<td>${book.name}</td>
-				<td>${book.status}</td>
-				<td><a href="<c:url value='/books/edit-${book.id}-book' />">Edit</a></td>
-				<td><a href="<c:url value='/books/delete-${book.id}-book' />">Delete</a></td>
+				<th><h3  class ="warning">Author: ${author.name}</h3></th>
 			</tr>
-		</c:forEach>
-	</table>
-	<br />
-	<a href="<c:url value='/books/new' />">Add New Book</a>
-	<br/>
-	<a href="<c:url value='/authors/' />">Back</a>
-	<br /> Go back to
-	<a href="<c:url value='/' />">Home</a>
+			<tr>
+				<th>Title</th>
+				<th>Status</th>
+			</tr>
+			<c:forEach items="${books}" var="book">
+				<tr>
+					<td>${book.title}</td>
+					<td>${book.status}</td>
+					<td><form:form
+							action="/academy/authors/${author.id}/books/${book.id}"
+							method="GET">
+							<input type="submit" value="Edit" class="btn btn-sm btn-warning"/>
+						</form:form>
+					</td>
+					<td><form:form
+							action="/academy/authors/${author.id}/books/${book.id}"
+							method="DELETE">
+							<input type="submit" value="Delete" class="btn btn-sm btn-warning"/>
+						</form:form>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		<br />		
+		<a href="<c:url value='/authors/${author.id}/books/new' />" class="btn btn-sm btn-warning">Add New
+			Book</a>
+		<br />
+		<br/>
+		<div>
+			<a href="<c:url value='/authors/' />" class="btn btn-sm btn-warning">Back</a>
+			<a href="<c:url value='/' />" class="btn btn-sm btn-warning">Back to Home</a>
+		</div>			
+	</div>
 </body>
 </html>

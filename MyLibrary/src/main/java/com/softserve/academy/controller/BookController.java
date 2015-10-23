@@ -1,10 +1,10 @@
 package com.softserve.academy.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
-import org.omg.PortableInterceptor.ServerRequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import com.softserve.academy.service.author.AuthorService;
 import com.softserve.academy.service.book.BookService;
 
 @Controller
-@RequestMapping({ "authors/{id}" })
+@RequestMapping({ "/authors/{id}" })
 public class BookController {
 
     @Autowired
-    BookService service;
+    BookService bookService;
      
     @Autowired
     MessageSource messageSource;
@@ -32,24 +32,27 @@ public class BookController {
     @Autowired
     AuthorService authorService;
     /*
-     * This method will list all existing authors.
+     * This method will list all existing book.
      */
     @RequestMapping(value = { "/books" }, method = RequestMethod.GET)
-    public String listBooks(ModelMap model) {
+    public String listBooks(@PathVariable Long id,ModelMap model) {
  
-        List<Book> books = service.findAllBooks();
+    	Author author = authorService.findById(id);
+        Set<Book> books = author.getBooks();
         model.addAttribute("books", books);
+        model.addAttribute("author", author);
         return "books/allBooks";
     }
  
     /*
-     * This method will provide the medium to add a new author.
+     * This method will provide the medium to add a new book.
      */
-    @RequestMapping(value = { "/new" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/books/new" }, method = RequestMethod.GET)
     public String newBook(ModelMap model) {
     	Book book = new Book();
-
-    	choiceAuthor(model);
+//    	Author author = authorService.findById(id);
+//    	choiceAuthor(model);
+    	
         model.addAttribute("book", book);
         model.addAttribute("edit", false);
         return "books/addBook";
@@ -69,7 +72,7 @@ public class BookController {
 //    }
     /*
      * This method will be called on form submission, handling POST request for
-     * saving employee in database. It also validates the user input
+     * saving book in database.
      */
     @RequestMapping(value = { "/books/new" }, method = RequestMethod.POST)
     public String saveBook(@Valid Book book, BindingResult result, ModelMap model, @PathVariable Long id) {
@@ -82,16 +85,11 @@ public class BookController {
         
         Author author = authorService.findById(id);
 		author.getBooks().add(book);
-		book.setAuthorId(author);
-		service.saveBook(book);
+		book.setAuthor(author);
+		bookService.saveBook(book);
 
 		
-		return "redirect:/authors/{id}";
-         
-//        service.saveBook(book);
-// 
-//        model.addAttribute("success", "Book " + book.getName() + " saved successfully");
-//        return "success";
+		return "redirect:/authors/{id}/books";
     }
     
    
@@ -99,12 +97,12 @@ public class BookController {
  
  
     /*
-     * This method will provide the medium to update an existing employee.
+     * This method will provide the medium to update an existing book.
      */
-    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.GET)
-    public String editBook(@PathVariable Long id, ModelMap model) {
-        Book book = service.findById(id);
-        Author author = book.getAuthorId();
+    @RequestMapping(value = { "/books/{id_book}" }, method = RequestMethod.GET)
+    public String editBook(@PathVariable Long id,@PathVariable Long id_book, ModelMap model) {
+        Book book = bookService.findById(id_book);
+        Author author = book.getAuthor();
 //        choiceAuthor(model);
         model.addAttribute("author", author);
         model.addAttribute("book", book);
@@ -113,33 +111,39 @@ public class BookController {
     }
      
     /*
-     * This method will be called on form submission, handling POST request for
-     * updating employee in database. It also validates the user input
+     * This method will be called on form submission, handling PUT request for
+     * updating book in database. It also validates the user input
      */
-    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.POST)
+    @RequestMapping(value = { "/books/{id_book}" }, method = RequestMethod.PUT)
     public String updateBook(@Valid Book book, BindingResult result,
-            ModelMap model, @PathVariable Long id) {
+            ModelMap model, @PathVariable Long id, @PathVariable Long id_book) {
  
         if (result.hasErrors()) {
             return "books/addBook";
         }
- 
-       
-        service.updateBook(book);
- 
-        model.addAttribute("success", "Book " + book.getName() + " updated successfully");
-        model.addAttribute("bookList",true);
-        return "success";
+  
+		Author author = authorService.findById(id);
+		book = bookService.findById(id_book);
+
+		
+		bookService.updateBook(book);
+		author.getBooks().add(book);
+		
+		return "redirect:/authors/{id}/books";
     }
  
      
     /*
-     * This method will delete an books by it's SSN value.
+     * This method will delete an books by it's Id value.
      */
-    @RequestMapping(value = { "/books/{id}" }, method = RequestMethod.DELETE)
-    public String deleteBook(@PathVariable Long id) {
-        service.deleteBookById(id);
-        return "redirect:/books/";
+    @RequestMapping(value = { "/books/{id_book}" }, method = RequestMethod.DELETE)
+    public String deleteBook(@PathVariable Long id, @PathVariable Long id_book) {
+    	
+    			Book book = bookService.findById(id_book);
+    			Author author = authorService.findById(id);
+    			
+    			author.getBooks().remove(book);
+    			bookService.deleteBook(book);    			
+    			return "redirect:/authors/{id}/books";
     }
- 
 }

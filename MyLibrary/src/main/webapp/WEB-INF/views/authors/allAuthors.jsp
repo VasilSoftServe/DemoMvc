@@ -1,42 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>University Enrollments</title>
 
-<style>
-tr:first-child {
-	font-weight: bold;
-	background-color: #C6C9C4;
-}
+<style type="text/css">
+    <%@include file="../libs/css/bootstrap-theme.min.css" %>
+    <%@include file="../libs/css/bootstrap.min.css" %>
 </style>
+
+
+
 
 </head>
 
 
 <body>
-	<h2>List of Authors</h2>
-	<table>
-		<tr>
-			<th>Name</th>
-			<th>Country</th>
-		</tr>
-		<c:forEach items="${authors}" var="author">
-			<tr>
-				<td>${author.name}</td>
-				<td>${author.country}</td>
-				<td><a href="<c:url value='/authors/edit-${author.id}-author' />">Edit</a></td>
-				<td><a href="<c:url value='/authors/delete-${author.id}-author' />">Delete</a></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<br />
-	<a href="<c:url value='/authors/new' />">Add New Author</a>
-	<br/>
-	<a href="<c:url value='/books/' />">List of All Books</a>
-	<br /> Go back to
-	<a href="<c:url value='/' />">Home</a>	
+	<div class="jumbotron">
+		<h2>List of Authors</h2>
+		<div class="btn-group">
+			<table class="table ">
+				<tr>
+					<th>Name</th>
+					<th>Country</th>
+				</tr>
+				<c:forEach items="${authors}" var="author">
+					<tr>
+						<td>${author.name}</td>
+						<td>${author.country}</td>
+						<td><form:form action="/academy/authors/${author.id}"
+								method="GET">
+								<input type="submit" value="Edit" class="btn btn-sm btn-info"/>
+							</form:form></td>
+						<td><form:form action="/academy/authors/${author.id}"
+								method="DELETE">
+								<input type="submit" value="Delete" class="btn btn-sm btn-info"/>
+							</form:form></td>
+						<td>
+						<td><form:form action="${author.id}/books"
+								method="GET">
+								<input type="submit" value="List of books" class="btn btn-sm btn-warning" />
+							</form:form></td>
+						</tr>
+				</c:forEach>
+			</table>
+		</div>
+		<br />
+		<a href="<c:url value='/' />" class="btn btn-sm btn-info">Back to Home</a>	
+		<a href="<c:url value='/authors/new' />" class="btn btn-sm btn-info">Add New Author</a>		
+	</div>
+	
+	<script type="text/javascript" src="../../libs/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../libs/js/jquery-2.1.4.min.js"></script>
 </body>
 </html>

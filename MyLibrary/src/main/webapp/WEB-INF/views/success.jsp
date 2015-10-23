@@ -5,17 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css">
+    <%@include file="libs/css/bootstrap-theme.min.css" %>
+    <%@include file="libs/css/bootstrap.min.css" %>
+</style>
+
 <title>Registration Confirmation Page</title>
+
 </head>
 <body>
-	message : ${success}
-	<br/>
-	<br/>
-	Go back to <a href="<c:url value='/authors/' />">List of All Authors</a>
-	<br/>
-	Go back to <a href="<c:url value='/books/' />">List of All Books</a>
-	<br /> Go back to
-	<a href="<c:url value='/' />">Home</a>
-	
+	<div class="jumbotron">
+		message : ${success}
+		
+	</div>
 </body>
 </html>

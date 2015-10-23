@@ -3,7 +3,7 @@
  */
 package com.softserve.academy.dao.book;
 
-import java.util.List;
+import java.util.Set;
 
 import com.softserve.academy.model.Book;
 
@@ -19,6 +19,6 @@ public interface BookDao {
 
 	void deleteBookById(Long id);
 
-	List<Book> findAllBooks();
+	Set<Book> findAllBooks();
 	
 }

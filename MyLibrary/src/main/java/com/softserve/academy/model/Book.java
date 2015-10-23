@@ -16,15 +16,29 @@ import javax.validation.constraints.Size;
 @Table(name = "books")
 public class Book {
 
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_book")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotNull
 	@Size(min = 3, max = 50)
-	@Column(name = "name")
-	private String name;
+	@Column(name = "title")
+	private String title;
 
 	@NotNull
 	@Size(min = 3, max = 15)
@@ -33,24 +47,26 @@ public class Book {
 
 //	@ManyToOne()
 //	@JoinColumn(name="id_authors")
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "id_authors")
-	private Author authorId;
+	private Author author;
 	
 		
+
 	/**
-	 * @return the authorId
+	 * @return the author
 	 */
-	public Author getAuthorId() {
-		return authorId;
+	public Author getAuthor() {
+		return author;
 	}
 
 	/**
-	 * @param authorId the authorId to set
+	 * @param author the author to set
 	 */
-	public void setAuthorId(Author authorId) {
-		this.authorId = authorId;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
+
 
 	/**
 	 * @return the id
@@ -67,20 +83,6 @@ public class Book {
 		this.id = id;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * @return the status
@@ -96,56 +98,4 @@ public class Book {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", status=" + status + "]";
-	}
-
-
-	
-
 }

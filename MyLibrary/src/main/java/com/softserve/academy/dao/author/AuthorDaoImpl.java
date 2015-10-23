@@ -3,7 +3,9 @@ package com.softserve.academy.dao.author;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
 import com.softserve.academy.dao.AbstractDao;
@@ -14,12 +16,17 @@ public class AuthorDaoImpl extends AbstractDao<Long, Author> implements AuthorDa
 
 	@Override
 	public Author findById(Long id) {
-		return getByKey(id);
+		Author author = getByKey(id);
+        if(author!=null){
+            Hibernate.initialize(author.getBooks());
+        }
+        return author;
 	}
 
+
 	@Override
-	public void saveAuthor(Author authors) {
-		persist(authors);
+	public void saveAuthor(Author author) {
+		persist(author);
 	}
 
 	@Override
@@ -32,11 +39,16 @@ public class AuthorDaoImpl extends AbstractDao<Long, Author> implements AuthorDa
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Author> findAllAuthors() {
-		Criteria criteria = createEntityCriteria();
-        return (List<Author>) criteria.list();
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Author> authors = (List<Author>) criteria.list();
+         
+        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
+        // Uncomment below lines for eagerly fetching of userProfiles if you want.
+        
+        for(Author author : authors){
+            Hibernate.initialize(author.getBooks());
+        }
+        return authors;
 	}
-	
-	   
-	
-
 }

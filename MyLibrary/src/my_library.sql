@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2015 at 04:08 PM
+-- Generation Time: Oct 22, 2015 at 04:21 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `my_library`
 --
+CREATE DATABASE IF NOT EXISTS `my_library` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `my_library`;
 
 -- --------------------------------------------------------
 
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `country` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `authors`
@@ -38,10 +40,10 @@ CREATE TABLE IF NOT EXISTS `authors` (
 
 INSERT INTO `authors` (`id`, `name`, `country`) VALUES
 (1, 'Ivan Vazov', 'BG'),
-(2, 'Elin Pelin', 'BG'),
-(3, 'aaaaaa', 'sdasdas'),
-(4, 'Mark Tven', 'BulG'),
-(5, 'Victor Hugo', 'France');
+(2, 'Ivan Vazov', 'BG'),
+(5, 'asd', 'asdasd'),
+(6, 'sssss', 'ssdsdsd'),
+(7, 'asdasd', 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -50,20 +52,23 @@ INSERT INTO `authors` (`id`, `name`, `country`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `books` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
+  `id_book` int(11) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
   `status` varchar(15) DEFAULT NULL,
   `id_authors` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `name`, `status`, `id_authors`) VALUES
+INSERT INTO `books` (`id_book`, `title`, `status`, `id_authors`) VALUES
 (2, 'Pod igoto', 'in stock', 1),
-(3, 'Na brazdata', 'out of stock', 2),
-(4, 'aaaaaa', 'aaaaaa', NULL);
+(6, 'aaa4', 'sasd4', 5),
+(9, '123', '123', 2),
+(10, 'asdasd', 'asdasdasd', 2),
+(11, 'Mamino detence', 'active', 5),
+(12, 'asasd', '111111', 5);
 
 --
 -- Indexes for dumped tables
@@ -80,7 +85,7 @@ ALTER TABLE `authors`
 -- Indexes for table `books`
 --
 ALTER TABLE `books`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_book`),
   ADD KEY `id_authors` (`id_authors`);
 
 --
@@ -91,12 +96,12 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
