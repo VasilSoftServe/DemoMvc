@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Employee Registration Form</title>
 <style type="text/css">
     <%@include file="../libs/css/bootstrap-theme.min.css" %>
@@ -39,7 +39,7 @@
 							<c:choose>
 								<c:when test="${edit}">
 									<form:form action="/academy/authors/${author.id}" method="PUT" >
-										<input type="submit" value="Edit" class="btn btn-sm btn-info"/>
+										<input type="submit" value="Update" class="btn btn-sm btn-info"/>
 									</form:form>
 								</c:when>
 								<c:otherwise>

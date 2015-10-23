@@ -47,7 +47,7 @@ public class Book {
 
 //	@ManyToOne()
 //	@JoinColumn(name="id_authors")
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_authors")
 	private Author author;
 	

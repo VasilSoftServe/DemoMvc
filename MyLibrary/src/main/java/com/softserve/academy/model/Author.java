@@ -33,7 +33,7 @@ public class Author {
 	private String country;
 
 
-	@OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
+	@OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)	
     private Set<Book> books;
  
 //	@Transient  
