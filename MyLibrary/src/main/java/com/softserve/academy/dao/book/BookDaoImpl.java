@@ -1,5 +1,11 @@
 /**
+ *BookDaoImpl.java
+ *
+ *created at Oct 27, 2015 
  * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
  */
 package com.softserve.academy.dao.book;
 
@@ -14,11 +20,6 @@ import org.springframework.stereotype.Repository;
 import com.softserve.academy.dao.AbstractDao;
 import com.softserve.academy.model.Book;
 
-
-/**
- * @author 123
- *
- */
 @Repository("bookDao")
 public class BookDaoImpl extends AbstractDao<Long, Book> implements BookDao {
 
@@ -45,18 +46,13 @@ public class BookDaoImpl extends AbstractDao<Long, Book> implements BookDao {
 
 	@SuppressWarnings("unchecked")
 	public Set<Book> findAllBooks() {
-		 Criteria criteria = createEntityCriteria().addOrder(Order.asc("title"));
-	        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-	        Set<Book> books = (Set<Book>) criteria.list();
-	         
-	        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-	        // Uncomment below lines for eagerly fetching of userProfiles if you want.
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("title"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+	    Set<Book> books = (Set<Book>) criteria.list();
 	        
-	        for(Book user : books){
-	            Hibernate.initialize(user.getAuthor());
-	        }
-	        return books;
-	}
-	
-	
+	    for(Book user : books){
+	         Hibernate.initialize(user.getAuthor());
+	    }
+	    return books;
+	}	
 }

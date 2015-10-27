@@ -1,3 +1,12 @@
+/**
+ *Book.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.model;
 
 import javax.persistence.Column;
@@ -16,20 +25,6 @@ import javax.validation.constraints.Size;
 @Table(name = "books")
 public class Book {
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Id
 	@Column(name = "id_book")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +40,9 @@ public class Book {
 	@Column(name = "status")
 	private String status;
 
-//	@ManyToOne()
-//	@JoinColumn(name="id_authors")
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "id_authors")
-	private Author author;
-	
-		
+	private Author author;		
 
 	/**
 	 * @return the author
@@ -83,7 +74,6 @@ public class Book {
 		this.id = id;
 	}
 
-
 	/**
 	 * @return the status
 	 */
@@ -97,5 +87,19 @@ public class Book {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

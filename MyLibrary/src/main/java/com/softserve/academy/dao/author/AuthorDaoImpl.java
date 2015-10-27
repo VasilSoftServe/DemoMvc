@@ -1,3 +1,12 @@
+/**
+ *AuthorDaoImpl.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.dao.author;
 
 import java.util.List;
@@ -23,7 +32,6 @@ public class AuthorDaoImpl extends AbstractDao<Long, Author> implements AuthorDa
         return author;
 	}
 
-
 	@Override
 	public void saveAuthor(Author author) {
 		persist(author);
@@ -42,10 +50,7 @@ public class AuthorDaoImpl extends AbstractDao<Long, Author> implements AuthorDa
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<Author> authors = (List<Author>) criteria.list();
-         
-        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-        // Uncomment below lines for eagerly fetching of userProfiles if you want.
-        
+      
         for(Author author : authors){
             Hibernate.initialize(author.getBooks());
         }

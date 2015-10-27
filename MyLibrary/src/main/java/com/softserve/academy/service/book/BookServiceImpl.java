@@ -1,5 +1,11 @@
 /**
+ *BookServiceImpl.java
+ *
+ *created at Oct 27, 2015 
  * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
  */
 package com.softserve.academy.service.book;
 
@@ -12,11 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.softserve.academy.dao.book.BookDao;
 import com.softserve.academy.model.Book;
 
-/**
- * @author 123
- *
- */
-
 @Service("bookService")
 @Transactional
 public class BookServiceImpl implements BookService {
@@ -24,11 +25,6 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookDao dao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.softserve.academy.service.BookService#findById(long)
-	 */
 	@Override
 	public Book findById(long id) {
 		return dao.findById(id);

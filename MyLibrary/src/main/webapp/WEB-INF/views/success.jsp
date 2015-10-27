@@ -13,10 +13,9 @@
 <title>Registration Confirmation Page</title>
 
 </head>
-<body>
-	<div class="jumbotron">
-		message : ${success}
-		
+<body class="jumbotron">
+	<div>
+		message : ${success}		
 	</div>
 </body>
 </html>

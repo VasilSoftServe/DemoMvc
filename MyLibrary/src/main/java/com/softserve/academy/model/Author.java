@@ -1,3 +1,12 @@
+/**
+ *Author.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.model;
 
 import java.util.Set;
@@ -17,8 +26,6 @@ import javax.validation.constraints.Size;
 @Table(name = "authors")
 public class Author {
 
-
-
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +39,9 @@ public class Author {
 	@Column(name = "country", nullable = false)
 	private String country;
 
-
 	@OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)	
     private Set<Book> books;
  
-//	@Transient  
-//	 private List<String> Answer;
-	
 	/**
 	 * @return the books
 	 */
@@ -98,53 +101,4 @@ public class Author {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Author other = (Author) obj;
-		if (country == null) {
-			if (other.country != null)
-				return false;
-		} else if (!country.equals(other.country))
-			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Author [id=" + id + ", name=" + name + ", country=" + country + "]";
-	}
-
 }

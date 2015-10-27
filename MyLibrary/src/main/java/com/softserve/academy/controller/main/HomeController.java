@@ -1,3 +1,12 @@
+/**
+ *HomeController.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.controller.main;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +23,7 @@ public class HomeController {
 	@RequestMapping(value = {"/"})
 	public String homePage(ModelMap model) {
 		String library = "Welcome to The Library!!!";
-		model.addAttribute("library", library);
-		
+		model.addAttribute("library", library);		
 		return "home";
 	}
 }

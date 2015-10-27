@@ -11,49 +11,67 @@
     <%@include file="../libs/css/bootstrap-theme.min.css" %>
     <%@include file="../libs/css/bootstrap.min.css" %>
 </style>
-
-
-
-
 </head>
-
-
-<body>
-	<div class="jumbotron">
-		<h2>List of Authors</h2>
+<body class="jumbotron">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+		<div class="container" >
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>			
+				</button>	
+				<a href="<c:url value='/'/>"  class="navbar-brand">Home</a>	
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#gallery">Gallery</a></li>			
+				</ul>
+			</div>			
+		</div>		
+	</nav>
+	<div>
+		<h2 class="text-info">List of Authors</h2>
 		<div class="btn-group">
-			<table class="table ">
-				<tr>
-					<th>Name</th>
-					<th>Country</th>
-				</tr>
-				<c:forEach items="${authors}" var="author">
-					<tr>
-						<td>${author.name}</td>
-						<td>${author.country}</td>
-						<td><form:form action="/academy/authors/${author.id}"
-								method="GET">
-								<input type="submit" value="Edit" class="btn btn-sm btn-info"/>
-							</form:form></td>
-						<td><form:form action="/academy/authors/${author.id}"
-								method="DELETE">
-								<input type="submit" value="Delete" class="btn btn-sm btn-info"/>
-							</form:form></td>
-						<td>
-						<td><form:form action="${author.id}/books"
-								method="GET">
-								<input type="submit" value="List of books" class="btn btn-sm btn-warning" />
-							</form:form></td>
+			<c:choose>
+				<c:when test="${emptyListOfAuthors}">
+					<h3 class="text-center">The list of authors is empty!!!</h3>
+				</c:when>
+				<c:otherwise>			
+					<table class="table">
+						<tr>
+							<th>Name</th>
+							<th>Country</th>
 						</tr>
-				</c:forEach>
-			</table>
+						<c:forEach items="${authors}" var="author">
+							<tr>
+								<td>${author.name}</td>
+								<td>${author.country}</td>
+								<td><form:form action="/academy/authors/${author.id}"
+										method="GET">
+										<input type="submit" value="Edit" class="btn btn-sm btn-info"/>
+									</form:form></td>
+								<td><form:form action="/academy/authors/${author.id}"
+										method="DELETE">
+										<input type="submit" value="Delete" class="btn btn-sm btn-info"/>
+									</form:form></td>
+								<td>
+								<td><form:form action="${author.id}/books"
+										method="GET">
+										<input type="submit" value="List of books" class="btn btn-sm btn-warning" />
+									</form:form></td>
+								</tr>
+						</c:forEach>
+					</table>
+				</c:otherwise>		
+			</c:choose>
 		</div>
 		<br />
-		<a href="<c:url value='/' />" class="btn btn-sm btn-info">Back to Home</a>	
 		<a href="<c:url value='/authors/new' />" class="btn btn-sm btn-info">Add New Author</a>		
-	</div>
+	</div>	
 	
-	<script type="text/javascript" src="../../libs/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../libs/js/jquery-2.1.4.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>		
+	
 </body>
 </html>

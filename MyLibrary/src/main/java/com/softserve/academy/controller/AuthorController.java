@@ -1,3 +1,12 @@
+/**
+ *AuthorController.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.controller;
 
 import java.util.List;
@@ -30,9 +39,11 @@ public class AuthorController {
      * This method will list all existing authors.
      */
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
-    public String listAuthors(ModelMap model) {
- 
-        List<Author> authors = authorService.findAllAuthors();
+    public String listAuthors(ModelMap model) { 
+        List<Author> authors = authorService.findAllAuthors();        
+        if (authors.size() == 0) {
+			model.addAttribute("emptyListOfAuthors", true);
+		}        
         model.addAttribute("authors", authors);
         return "authors/allAuthors";
     }
@@ -54,16 +65,11 @@ public class AuthorController {
      */
     @RequestMapping(value = { "/new" }, method = RequestMethod.POST)
     public String saveAuthor(@Valid Author author, BindingResult result,
-            ModelMap model) {
- 
+            ModelMap model) { 
         if (result.hasErrors()) {
             return "authors/addAuthor";
-        }
-        
+        }        
         authorService.saveAuthor(author);
- 
-//        model.addAttribute("success", "Author " + author.getName() + " saved successfully");
-//        return "success";
         return "redirect:/authors/";
     }
  
@@ -81,28 +87,22 @@ public class AuthorController {
      
     /*
      * This method will be called on form submission, handling POST request for
-     * updating author in database. It also validates the user input
+     * updating author in database. It also validates the user input.
      */
     @RequestMapping(value = { "/{id}" }, method = RequestMethod.PUT)
     public String updateAuthor(@Valid Author author, BindingResult result,
-            ModelMap model, @PathVariable Long id) {
- 
-        if (result.hasErrors()) {
-            return "authors/addAuthor";
-        }
- 
-       
-        authorService.updateAuthor(author);
- 
-//        model.addAttribute("success", "Author " + author.getName() + " updated successfully");
-//        return "success";
-        
+            ModelMap model, @PathVariable Long id) { 
+        if (result.hasErrors()) {  
+        	String message = "size must between 3 and 50 simbols";
+        	model.addAttribute("message", message);
+            return "redirect:/authors/{id}";            
+        }       
+        authorService.updateAuthor(author);   	       
         return "redirect:/authors/";
-    }
- 
+    } 
      
     /*
-     * This method will delete an author by it's SSN value.
+     * This method will delete an author by it's Id value.
      */
     @RequestMapping(value = { "/{id}" }, method = RequestMethod.DELETE)
     public String deleteAuthor(@PathVariable Long id) {

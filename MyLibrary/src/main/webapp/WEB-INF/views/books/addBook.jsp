@@ -16,9 +16,26 @@
 
 </head>
 
-<body>
-
-	<div class="jumbotron">
+<body class="jumbotron">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="my-navbar">
+		<div class="container" >
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>				
+				</button>	
+				<a href="<c:url value='/'/>"  class="navbar-brand">Home</a>	
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="<c:url value='/authors/' />">Authors</a></li>		
+					<li><a href="<c:url value='/authors/${author.id}/books' />">Books</a></li>		
+				</ul>
+			</div>			
+		</div>		
+	</nav>
+	<div>
 		<h2>Add Book</h2>	
 		<form:form modelAttribute="book">
 			<form:input type="hidden" path="id" id="id" />
@@ -38,7 +55,7 @@
 					<td colspan="3"><c:choose>
 							<c:when test="${edit}">
 								<form:form action="/academy/authors/${author.id}/books/${book.id}" method="PUT">
-									<input type="submit" value="Edit" class="btn btn-sm btn-warning"/>
+									<input type="submit" value="Update" class="btn btn-sm btn-warning"/>
 								</form:form>
 							</c:when>
 							<c:otherwise>
@@ -46,12 +63,15 @@
 									<input type="submit" value="Add" class="btn btn-sm btn-warning" />
 								</form:form>
 							</c:otherwise>
-						</c:choose></td>
+						</c:choose>
+					</td>
 				</tr>
 			</table>
 		</form:form>
-		<br />
-		<a href="<c:url value='/' />" class="btn btn-sm btn-warning">Back to Home</a>
-	</div>
+		<br />	
+	</div>	
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
+	
 </body>
 </html>

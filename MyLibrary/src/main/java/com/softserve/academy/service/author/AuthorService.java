@@ -1,3 +1,12 @@
+/**
+ *AuthorService.java
+ *
+ *created at Oct 27, 2015 
+ * 
+ *@author Vasil Sokolov <vasilsokolov@abv.bg>
+ *
+ * Copyright (c) 2015 . All Rights Reserved.
+ */
 package com.softserve.academy.service.author;
 
 import java.util.List;
