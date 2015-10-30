@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2015 at 04:21 PM
+-- Generation Time: Oct 27, 2015 at 10:31 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `my_library`
 --
-CREATE DATABASE IF NOT EXISTS `my_library` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `my_library`;
 
 -- --------------------------------------------------------
 
@@ -32,18 +30,16 @@ CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `country` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `authors`
 --
 
 INSERT INTO `authors` (`id`, `name`, `country`) VALUES
-(1, 'Ivan Vazov', 'BG'),
-(2, 'Ivan Vazov', 'BG'),
-(5, 'asd', 'asdasd'),
-(6, 'sssss', 'ssdsdsd'),
-(7, 'asdasd', 'asdasd');
+(9, 'Ivan Vazov', 'Bulgaria'),
+(11, 'Elin Pelin', 'Bulgaria'),
+(12, 'Victor Hugo', 'France');
 
 -- --------------------------------------------------------
 
@@ -56,19 +52,17 @@ CREATE TABLE IF NOT EXISTS `books` (
   `title` varchar(50) DEFAULT NULL,
   `status` varchar(15) DEFAULT NULL,
   `id_authors` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `books`
 --
 
 INSERT INTO `books` (`id_book`, `title`, `status`, `id_authors`) VALUES
-(2, 'Pod igoto', 'in stock', 1),
-(6, 'aaa4', 'sasd4', 5),
-(9, '123', '123', 2),
-(10, 'asdasd', 'asdasdasd', 2),
-(11, 'Mamino detence', 'active', 5),
-(12, 'asasd', '111111', 5);
+(27, 'Pod igoto', 'out of stock', 9),
+(28, 'Les Misarables ', 'in stock', 12),
+(29, 'Ide li', 'in stock', 9),
+(30, 'Chichovchi', 'out of stock', 9);
 
 --
 -- Indexes for dumped tables
@@ -96,12 +90,12 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id_book` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- Constraints for dumped tables
 --

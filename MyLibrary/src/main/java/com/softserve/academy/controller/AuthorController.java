@@ -11,13 +11,16 @@ package com.softserve.academy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,13 +44,32 @@ public class AuthorController {
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public String listAuthors(ModelMap model) { 
         List<Author> authors = authorService.findAllAuthors();        
-        if (authors.size() == 0) {
+        if (authors.isEmpty() && authors.equals(null)) {
 			model.addAttribute("emptyListOfAuthors", true);
 		}        
         model.addAttribute("authors", authors);
         return "authors/allAuthors";
     }
- 
+    
+//    @RequestMapping(value = { "/" }, method = RequestMethod.GET)
+//    public String paginator(HttpServletRequest request, ModelMap model) {
+//    	
+//    	PagedListHolder<List<Author>> pagedListHolder = new PagedListHolder<List<Author>> ();
+//    	int page = ServletRequestUtils.getIntParameter(	request	, "p", 0);
+//    	pagedListHolder.setPage(page);
+//    	pagedListHolder.setPageSize(4);
+//    	model.addAttribute("pagedListHolder", pagedListHolder);    	
+//   	
+//    	  List<Author> authors = authorService.findAllAuthors();        
+//          if (authors.isEmpty() && authors.equals(null)) {
+//  			model.addAttribute("emptyListOfAuthors", true);
+//  		}        
+//          model.addAttribute("authors", authors);
+//    	
+//    	
+//    	return "authors/allAuthors";    
+//    }
+    
     /*
      * This method will provide the medium to add a new author.
      */

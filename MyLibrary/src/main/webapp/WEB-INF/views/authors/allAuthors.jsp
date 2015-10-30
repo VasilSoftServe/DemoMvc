@@ -1,7 +1,11 @@
+<%@ page import="org.springframework.util.StringUtils"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%> 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -32,6 +36,8 @@
 	</nav>
 	<div>
 		<h2 class="text-info">List of Authors</h2>
+		
+	
 		<div class="btn-group">
 			<c:choose>
 				<c:when test="${emptyListOfAuthors}">
@@ -69,6 +75,9 @@
 		<br />
 		<a href="<c:url value='/authors/new' />" class="btn btn-sm btn-info">Add New Author</a>		
 	</div>	
+<!-- <tg:paging pagedLink="${pagedLink}" pagedListHolder="${pagedListHolder}"></tg:paging>
+	 -->	
+	
 	
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>		

@@ -47,7 +47,7 @@ public class BookController {
     public String listBooks(@PathVariable Long id,ModelMap model) { 
     	Author author = authorService.findById(id);
         Set<Book> books = author.getBooks();        
-        if (books.size() == 0) {
+        if (books.isEmpty() && books.equals(null)) {
 			model.addAttribute("emptyListOfBooks", true);
 		}
         model.addAttribute("books", books);
